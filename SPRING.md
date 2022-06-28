@@ -53,6 +53,6 @@ Filter역시 Spring boot내에서는 bean으로 등록되어 있기 때문에 �
 
    Spring security역시 Filter가 추가되어서 앞단에서 유저에 대한 인증을 진행하고 있다.
    
-   Spring security는 delagated proxy라는 것에 많이 의존하고 있는데 이것은 spring framework에서 제공하는 웹 모듈로  javax.Servlet.Filter interface를 구현한 모든 클래스를 filter chain에 등록하여 스프링이 관리할 수 있는 filter로 바꿔주는 역할을 한다.
+   Spring security는 DelegatingFilterProxy라는 것에 많이 의존하고 있는데 이것은 spring framework에서 제공하는 웹 모듈로  javax.Servlet.Filter interface를 구현한 모든 클래스를 filter chain에 등록하여 스프링이 관리할 수 있는 filter로 바꿔주는 역할을 한다.
 
 </details>
