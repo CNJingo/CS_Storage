@@ -56,3 +56,30 @@ Filter역시 Spring boot내에서는 bean으로 등록되어 있기 때문에 �
    Spring security는 DelegatingFilterProxy라는 것에 많이 의존하고 있는데 이것은 spring framework에서 제공하는 웹 모듈로  javax.Servlet.Filter interface를 구현한 모든 클래스를 filter chain에 등록하여 스프링이 관리할 수 있는 filter로 바꿔주는 역할을 한다.
 
 </details>
+
+### 싱글톤이란?
+<details>
+   <summary> 자세히 보기 </summary>
+ 
+ <br>
+
+   디자인 패턴중 하나로서 하나의 애플리케이션에서는 하나의 인스턴스만 존재하게끔 하는 것이다.
+   
+   공유 자원을 관리할때나 로깅처럼 여러 곳에서 공통적으로 사용되는 서비스를 제공하는데 이점이 있다.
+   
+   또한 여러개의 요청에 각각의 인스턴스를 생성하는 것은 메모리 낭비가 심하기 때문에 이를 하나의 객체만 생성해놓고 돌려 쓰는 것은 효율적일 수 있다.
+   
+   스프링은 IOC container에서 하나의 Bean만 생성하여 관리한다. 즉 싱글턴패턴으로 객체를 관리한다.
+   
+   그럼 스프링은 모두 싱글턴 패턴이냐? 그 것은 아니다. 왜냐하면 애플리케이션 내에서 여러 Spring Container를 사용할 수 있기 때문이다.
+   
+   <img width="882" alt="스크린샷 2022-07-08 오후 11 24 32" src="https://user-images.githubusercontent.com/55564829/178011507-24595250-b9d0-4fb1-bc93-603492840cfd.png">
+
+   스프링은 어떠한 객체의 인스턴스를 사용할때 컨테이너로 부터 주입받아서 사용한다. 즉 New 키워드를 사용해서 새로운 객체를 생성하지 않는다.
+   
+   이는 IOC Container에서 관리하는 Bean을 주입받아서 사용하는 것이다. 이때 IOC Continainer가 하나였다면 싱글턴 패턴으로 객체를 사용할 수 있는 것이다.
+   
+   싱글톤은 Spring에서 default bean scope로 지정하고 있다 bean scope를 바꿔주게 되면 더이상 그 bean은 싱글턴으로 작동하지 않게 된다.
+  
+
+</details>
