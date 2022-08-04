@@ -99,3 +99,19 @@
    
    
 </details>
+
+### optimistic locking vs pessmistic locking
+<details>
+   <summary> 자세히 보기 </summary>
+ 
+ <br>
+   일반적으로 DB transaction isolation은 read에 대한 consistency에 관한 내용입니다. 하지만 db update에 관해서도 같은 row에 대한 수정이 동시에 일어날때 우리는 이를 관리할 필요성이 있습니다. 그 방법으로 첫번째는 optimistic locking이 있습니다. 
+   
+   optimistic locking의 핵심은 versioning입니다. db update마다 버전을 집어넣어서 commit을 할때 where조건에 이전 버전을 넣어줌으로써 이전 버전이 commit되어 있는 상태인지를 체크합니다. 만약 이전에 다른 commit이 버전을 올려놓았다면 우리는 그 버전보다 1을 높여서 다시 commit을 하게 됩니다. 이로써 우리는 동시에 발생한 update에서 두번쨰 update가 첫번쨰 update내용을 overwrite하는 것을 방지할 수 있습니다.
+   
+   pessimistic locking은 db update하는 동안 lock을 걸어서 그 누구도 접근할 수 없게 하는 기법입니다. 이는 이론상 제일 안전하지만 deadlock과 같은 위험성을 내포하고 있습니다. 이렇게 보면 무조건 optimistic locking을 사용하는게 좋지 않나라는 생각이 들 수 있습니다.
+   
+   optimistic locking은 주로 충돌이 많이 예상되지 않는 상황일떄 사용합니다. 왜냐하면 충돌이 많이 발생하는 환경에서는 트랜잭션이 중단되는 것을 해결하는데 비용이 더 많이 소모되기 떄문입니다.
+   
+   
+</details>
