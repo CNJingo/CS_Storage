@@ -113,6 +113,39 @@ Filter역시 Spring boot내에서는 bean으로 등록되어 있기 때문에 �
    이렇게 되면 중복되는 코드는 템플릿 클래스를 통해 하나가 되고 변하는 부분에 대해서만 콜백 함수로 넘기면 되므로 기능 확장을 많이 하더라도 코드의 양이 많이 늘어나는 것을 방지할 수 있다.
    
    
-   
-   
 </details>
+
+### Exception
+
+<details>
+   <summary> 자세히 보기 </summary>
+
+ <br>
+   Spring에는 checked exception과 unchecked exception 두개가 존재한다.
+
+   checked exception은 예외처리를 강제하는 exception이다. 주로 chcked exception은 애플리케이션 외의 상황에서 문제가 생기는 exception들을 포함하고 있다.
+
+   예를 들어 파일을 읽으려고 했는데 존재하지 않는 I/O exception이나 db connection을 가져오지 못해서 생기는 SQLException 같은 것들이다.
+
+​	checked exception은 특이한 점이 spring에게 예외처리를 강제한다. 이는 compile time에서 에러가 날 수 있는 상황을 미리 감지하고 throw 구문을 강제한다. 
+
+​	그런데 만약 checked exception이 발생해도 예외를 던지는 것 외에는 할 수 있는게 없다면? 그냥 이것을 런타임 exception으로 포장해서 던지는게 낫다. 왜냐하면 checked exception은 상위 메소드로 에러를 던지기 때문에 계속 throw 구문을 불필요하게 적어줘야 하기 때문이다.
+
+​	만약 checked exception이 발생했을때 예외를 해결하기 위해 시도할 수 있는 방법이 있다면 catch로  exception을 잡아서 해당 처리를 해주는게 좋다. 
+
+   unchecked exception은 런타임 exception을 상속받은 모든 exception이다. 주로 애플리케이션 로직에 에러가 있을때 발생한다. 그렇기 떄문에 이는 런타임시에 발생된다. NullpointException, ArithmeticException과 같은 에러가 있다.
+
+​	이러한 에러에 대해서 예외복구가 불가능한 상황이라면 최대한 에러메시지를 구체화해서 개발자에게 알려주는 것이 좋다. 하지만 이런 생각이 든다. 에러를 throw하고 아무런 처리를 하지 않는다면 프론트 입장에선 예상했던 response entity가 아닌 error를 뱉고 아무런 응답을 주지 않는 서버라면 이를 처리하기가 곤란할 것이다.
+
+​	Spring에서는 이러한 것을 방지하기위해 @ControllerAdvice, @ExceptionHandler와 같은 어노테이션을 제공한다. @ExceptionHandler는 선언되어 있는 클래스 안에서 발생하는 에러들을 잡고 @ControllerAdvice는 모든 컨트롤러에서 발생하는 에러를 잡을 수 있다. throw로 에러를 던지면 이 어노테이션이 선언되어 있는 메소드로 에러가 가는 것이다.
+
+​	그렇게 되면 해당 메소드들에서 에러를 잡아서 에러 메시지를 프로그램에서 정의해놓은 response entity에 실어서 보낼 수 있다. 이러한 로직을 만들게 되면 프론트에서는 항상 같은 response를 받을 수 있다.
+
+​	마지막으로 exception은 주로 구체적이지 않고 범용적인 에러인 경우가 많기 때문에 이러한 경우 조금더 세부적인 내용을 담고 있는 custom한 에러를 선언해줘서 해당 에러를 상속받아서 더 구체적이고 명시적인 에러를 만들어서 뱉는 것이 바람직하다.
+
+
+
+</details>
+
+
+   
