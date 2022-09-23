@@ -56,3 +56,99 @@ job.setNumreduceTasks(0) 이 설정을 넣어준다면 Reducer가 없이 Mapper�
 
 </details>
 
+
+</details>
+
+### KAFKA
+<details>
+   <summary> 자세히 보기 </summary>
+ 
+ <br>
+   
+![kafka](https://user-images.githubusercontent.com/55564829/191907333-ec19d61c-5611-4e70-ad33-58b1a58bbfeb.png)
+
+Publish-Subscribe구조의 message system이다.
+
+Message broker Opensource이다.
+
+
+
+
+
+## Message broker란?
+서로 다른 이기종 시스템간에 메시지를 주고받을 수 있게 해주는 소프트웨어입니다.
+
+
+
+## Message broker의 작동 방식
+Producer: Message Broker에서 메시지 Sender에 해당하는 시스템입니다. Publish/Subscribe 구조에서는 Publisher로 불립니다.
+Consumer: Message Broker에서 메시지 Receiver에 해당하는 시스템입니다. Publish/Subscribe 구조에서는 Subscriber로 불립니다.
+Queue/topic: 파일시스템 안에 있는 폴더입니다. 메시지 브로커가 메시지들을 저장하는 데에 사용됩니다.
+
+
+## Message broker는 왜 쓰는가?
+기본적으로 이기종간 시스템이 통신하기 위해서는 가운데 인터페이스가 필요합니다. 서로 어떤 데이터 형태로 데이터를 주고 받을지 정의내려야 하며 그 것을 토대로 통신해야만 합니다.
+
+이러한 작업에는 오버헤드가 발생하며 메시지 브로커는 이러한 인터페이스를 따로 정의할 필요 없이 메시지 브로커가 정의한대로 메시지를 주고 받으면 되기 때문에 편리하다는 이점을 제공합니다.
+
+또한 Provider와 Consumer가 동시에 실행되고 있을 필요가 없습니다. 이는 굳이 컨슈머와 연결을 안해도 되며 컨슈머의 state를 체크하지 않아도 되는 이점이 있습니다.
+
+마지막으로 메시지 브로커가 중간에 누락된 메시지는 재 전송하는 프로토콜을 가지고 있기 때문에 신뢰성이 높습니다.
+
+
+
+## Message broker의 단점
+새로운 element가 추가되야 하므로 기존 아키텍쳐 구성에서 변경되어야할 부분이 많이 있을 수 있습니다. 
+
+또한 메시지가 제대로 전송되지 않았을때 해당 메시지가 어떤 부분에서 잘못됐는지 파악하기 위해서 반드시 모니터링이 필요합니다.
+
+
+
+## Stream processing이란?
+연속적인 데이터의 흐름 (배치의 반대 개념)
+
+
+
+## kafka 장점
+backward compatibility가 우수하고 많은 프로그래밍 언어를 지원함으로써 integration이 우수하다.
+
+Stream processsing과 daya analytics에 유리하다.
+
+
+
+## Topic
+kafka에서 사용되는 개념으로 일종의 카테고리이다. 데이터를 categorizing하기 위해 사용된다.
+
+
+
+## 카프카의 구성요소는 다음과 같다.
+
+Broker: 클라이언트로 부터 들어온 모든 요청을 핸들링한다. 데이터를 복제하여 클러스터에 저장한다.
+Zookeeper: 클러스터의 상태를 계속 추적한다.
+Producer: records를 브로커에게 보낸다.
+Consumer: 브로커로 부터 데이터 batch를 받아서 사용한다.
+
+![kafka-broker-beginner](https://user-images.githubusercontent.com/55564829/191907391-94cd8bcf-408b-45f1-9a77-259534b08e99.png)
+
+
+
+카프카는 한개 또는 여러개의 서버(브로커)로 구성되어있다. producers는 records를 브로커 안에 토픽에 보낸다. 그리고 컨슈머는 카프카 토픽으로 부터 records를 꺼내어 사용한다.
+
+분산 처리 환경에서는 여러개의 분산 서버를 관리하는 하나의 master 노드가 필요하기 마련인데 이 역할을 하는 것이 Zookeeper이다. 이러한 주키퍼는 클러스터 안에 존재하며 한개 또는 여러개가 있을 수 있습니다.
+
+
+
+토픽은 여러개의 파티션으로 분리됩니다. 파티션안에 있는 record는 유니크한 offset을 할당받습니다.
+
+파티션은 토픽을 여러개의 데이터로 쪼개서 관리할 수 있게해줌으로써 병렬처리를 용이하게 합니다. 카프카는 replication을 파티션 레벨에서 진행합니다.
+
+파티션은 여러개로 복제가 되어 있고 그중 한개가 리더 역할을 담담합니다. 만약 리더가 죽을시 나머지 팔로우 파티션들중 하나가 리더 파티션이됩니다.
+
+
+
+컨슈머는 특정 오프셋으로부터 메시지를 읽을 수 있습니다.
+
+
+</details>
+
+
