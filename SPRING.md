@@ -161,4 +161,29 @@ Filter역시 Spring boot내에서는 bean으로 등록되어 있기 때문에 �
 </details>
 
 
+### filter는 스프링 빈으로 어떻게 등록이 가능한가?
+
+<details>
+   <summary> 자세히 보기 </summary>
+   
+   원래 filter는 spring mvc 밖에 존재하면서 dispatcher servlet으로 요청이 들어가기 전에 존재한다. 즉 클라이언트의 요청을 제일 먼저 받는 곳이 필터이다.
+   
+   그렇기 때문에 원래 filter는 spring bean으로 등록될 수 없다. 하지만 delegatingFilterProxy는 서블릿 필터를 스프링 빈으로 등록 가능케 해준다.
+   
+   delegatingFilterProxy는 필터 이름을 가져와서 해당 필터 이름을 가진 빈을 spring application context로 부터 가져온다.
+   
+그렇게 하면 해당 필터를 거치는 요청은 모두 해당 필터를 이름으로 가진 빈에게 가게 되는 것이다.
+
+delegatingFilterProxy는 spring security에서 주요하게 사용하는 기술이다.
+
+이 delegatingFilterProxy는 Spring boot에서는 필요 없다.
+
+그 이유는 Spring boot는 tomcat과 같이 서블릿 컨테이너도 관리하고 있기 때문에 필터를 빈으로 등록해주는 추가적인 작업이 필요치 않게 된다. 그 말의 의미는 톰캣이 이미 스프링 빈으로 관리되고 있다는 뜻이다.
+
+그렇기 때문에 서블릿 필터도 이미 스프링 빈으로 자동적으로 등록되어 있다.
+   
+   
+ <br>
+
+
    
