@@ -186,4 +186,38 @@ delegatingFilterProxy는 spring security에서 주요하게 사용하는 기술�
  <br>
 
 
+</details>
+
+
+### @Mock과 @InjectMock의 차이
+
+<details>
+   <summary> 자세히 보기 </summary>
+@mock 과 @InjectMock의 차이점은 Mock은 정말 목 오브젝트이지만 InjectMock은 실제 클래스의 인스턴스를 생성한다. 그리고 Mock 오브젝트를 의존성으로 주입받는 오브젝트이다.
+
+   JUnit4 에서는 @RunWith(MockitoJUnitRunner.class) or Mockito.initMocks(this)를 사용하여 반드시 주입시킬 Mock오브젝트를 초기화 시켜줘야 한다.
+   
+   JUnit5 에서는 @ExtendWith(MockitoExtension.class)로 Mock 오브젝트 초기화가 가능하다.
+   
+   sample code
+   ```
+   @RunWith(MockitoJUnitRunner.class) // JUnit 4
+// @ExtendWith(MockitoExtension.class) for JUnit 5
+public class SomeManagerTest {
+
+    @InjectMocks
+    private SomeManager someManager;
+
+    @Mock
+    private SomeDependency someDependency; // this will be injected into someManager
+ 
+     // tests...
+
+}
+   ```
+   
+   
+   
+ <br>
+
    
