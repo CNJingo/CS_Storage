@@ -219,5 +219,28 @@ public class SomeManagerTest {
    
    
  <br>
+   
+   
+   ### Spring transaction propagation
+
+<details>
+   <summary> 자세히 보기 </summary>
+Spring tansaction propagation은 트랜잭션에 관한 것이다. 트랜잭션 설정이 돼있는 메소드가 다른 메소드를 호출했을때 해당 메소드가 기존에 존재하던 트랜잭션 안에서 실행될 것이나 아니면 새로운 트랜잭션을 생성해서 실행될 것이냐로 나뉜다.
+   
+   propagation_requires_new 는 새로운 트랜잭션을 생성해서 실행하는 것이고
+   
+   <img width="858" alt="스크린샷 2022-10-04 오후 11 27 50" src="https://user-images.githubusercontent.com/55564829/193846206-f6744f28-fc6c-42ad-bc30-60cda7cb3a29.png">
+   
+   
+   propagation_required는 기존 트랜잭션 실행 흐름에서 실행되는 것을 얘기한다.
+   
+<img width="883" alt="스크린샷 2022-10-04 오후 11 28 28" src="https://user-images.githubusercontent.com/55564829/193846363-e8c89b1d-5772-4493-8122-b6b82ef1c62a.png">
+
+   
+   
+   
+   
+ <br>
+
 
    
