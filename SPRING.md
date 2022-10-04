@@ -220,8 +220,9 @@ public class SomeManagerTest {
    
  <br>
    
+</details>
    
-   ### Spring transaction propagation
+### Spring transaction propagation
 
 <details>
    <summary> 자세히 보기 </summary>
@@ -238,8 +239,7 @@ Spring tansaction propagation은 트랜잭션에 관한 것이다. 트랜잭션 
 
    
    
-   
-   
+
  <br>
 
 
