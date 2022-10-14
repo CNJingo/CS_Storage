@@ -33,7 +33,7 @@
     
 </details>
 
-### 상속관계 쵝화
+### 상속관계
 <details>
    <summary> 자세히 보기 </summary>
  
