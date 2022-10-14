@@ -33,7 +33,7 @@
     
 </details>
 
-### 상속관계
+### 상속관계에서의 다형성
 <details>
    <summary> 자세히 보기 </summary>
  
