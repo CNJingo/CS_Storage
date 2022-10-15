@@ -237,10 +237,30 @@ Spring tansaction propagation은 트랜잭션에 관한 것이다. 트랜잭션 
    
 <img width="883" alt="스크린샷 2022-10-04 오후 11 28 28" src="https://user-images.githubusercontent.com/55564829/193846363-e8c89b1d-5772-4493-8122-b6b82ef1c62a.png">
 
-   
-   
 
  <br>
+   
+ </details>
+   
+ ### Spring security에서 JWT기반 유저인증
+
+<details>
+   <summary> 자세히 보기 </summary>
+   JWT기반 로그인에서 Spring security는 유저를 인증한다. 해당 JWT가 유효한 JWT가 맞다면 유저의 정보를 Security context holder에 저장해놓는다. 이 Security context holder에 유저 정보를 저장해놓으면 인증 이후 실행될 API에서 쉽게 유저의 정보에 접근하여 꺼낼 수 있다.
+   
+   이게 어떻게 가능한 것인가? 그것의 비밀은 바로 threadlocal에 있다. thread 로컬은 스레드내에 정보를 저장할 수 있게하여 해당 스레드가 살아있는 동안은 어디서든 해당 정보에 접근할 수 있다.
+   그렇기 때문에 컨트롤러에서 유저의 정보를 쉽게 꺼내볼 수 있는 것이다. 하지만 이러한 것이 가능하려면 일단 spring seucirty filter에서 유저의 정보를 스레드로컬에 저장하는 작업이 필요하다.
+   
+   이는 filter를 새로생성하여 doFilter() 메소드 내에서 쿠키를 뒤지고 쿠키내에서 JWT를 확인한다면 해당 JWT의 유효성 검증 후 security context holder에 유저 정보를 저장해두는 필터를 생성하면 된다. 여기서 주로 사용되는 필터는 OncePerRequestFilter이다. 이 필터가 왜 주로 사용되냐면 서블릿은 여러개가 존재할 수 있고 필터들이 중복되는 경우가 발생할 수 있다. 이러한 경우를 대비하여 OncePerRequestFilter는 딱 한번만 실행될 수 있게끔 강제하기 때문에 유저의 인증과 같은 한번만 이뤄져야하는 작업에 대해서 구현할때 매우 유용하다.
+   
+   spring mvc와 같은 서블릿 컨테이너는 thread pool을 가지고 있다. 이는 여러개의 스레드를 미리 생성해놓고 요청에 스레드를 하나씩 할당하는 것이다. 우리가 만약 threadlocal에 정보를 저장하고 해당 요청이 끝난뒤에 thread를 그대로 반납하게 되면 memeory leak이 발생할 수도 있으며 다른 요청이 threadlocal에 남아있는 정보를 사용하다가 문제를 발생시킬 수도 있따.
+   
+   그러므로 threadlocal을 다 사용한 뒤에는 반드시 remove를 통해 저장된 정보를 지우고 threadpool에 반납해야 한다.
+   이를 쉽게 하려면 ThreadPoolExecutor 를 상속받아서 beforeExcute()나 afterExcute()를 오버라이딩 하면 된다. ThreadPoolExecutor의 함수는 thread는 빌려주기 전 또는 반납 받기 전에 트리거 되는 함수를 제공하고 있으므로 이를 오버라이딩 한다면 따로 비즈니스로직에서 스레드로컬의 정보를 일일이 삭제하는 번거로움을 덜 수 있다.  
+   
+ <br>
+   
+ </details>
 
 
    
