@@ -124,7 +124,14 @@
    
    싱글턴 객체는 mock 오브젝트 생성이 어려워 테스트하기가 어렵다는 단점이 있다.
 
-   여기서 주의할 점은 리플렉션 api를 사용하여 private생성자를 호출할 수 있기 때문에 생성자를 수정하여서 두번째 객체가 생성되려고 한다면 예외를 던지게끔 구현해놓는 것이 좋다.
+   여기서 주의할 점은 리플렉션 api를 사용하여 private생성자를 호출할 수 있기 때문에 생성자를 수정하여서 두번째 객체가 생성되려고 한다면 아래와 같이 예외를 던지게끔 구현해놓는 것이 좋다.
+   
+   ```
+   private Test() {
+    if (INSTANCE != null)
+        throw new IllegalArgumentException("Instance already created");
+   }
+   ```
    
    private생성자는 첫번째 방법이고 싱글턴을 만드는 두번째 방법은 정적 팩터리 메서드를 public static으로 제공하는 것이다. private static final 인스턴스를 반환하게끔 하여서 제2의 인스턴스가 생성되는 것을 방지한다.
    
