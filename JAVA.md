@@ -153,3 +153,46 @@
    그리고 private 생성자를 만들었을 경우에는 상속이 안된다. 그 이유는 모든 생성자는 따로 명시하지 않아도 상위 클래스의 생성자를 호출하게 되는데 private 생성자는 다른 클래스에서 호출이 안되기 때문이다.
    
 </details>
+
+
+### Autoboxing Unboxing
+<details>
+   <summary> 자세히 보기 </summary>
+ 
+ <br>
+   
+   Autoboxing은 primitive type을 랩핑한 클래스를 사용하는 것을 얘기한다. unboxing 반대로 wrapping 된 클래스에서 primitive type으로 변환하는 것을 얘기한다.
+   
+   이러한 작업은 JVM에서 자동으로 이루어진다. JAVA8 에서는 모든 primitive type에 대한 wrapper class가 존재한다. 이게 왜 필요한가? primitive type에 대한 여러가지 미리 정의된 method들을 제공하기 때문에 유용하게 사용할 수 있다.
+   
+   그리고 wrapper class는 객체이기 때문에 레퍼런스를 저장하고 있다. 그래서 null값을 가지고 있을 수도 있다. 그리고 wrapper class는 Object를 예상되는 곳에서 사용할 수 있다.
+   
+   예를 들면 ArrayList같은 Collection은 Object배열 형태로 값을 저장해야 하는데 여기서는 객체가 예상되므로 primitive type을 사용할 수 없다.
+   
+   그래서 우리가 ArrayList<int> 는 선언 자체가 안되고 ArrayList<Integer>로 선언해야 하는 것이다.
+   
+   그렇다면 모든 primitive type을 wrapper class로 대신해서 사용해도 되나? 그건 아니다.
+   
+   wrapper class는 객체이기 때문에 새로운 메모리공간을 사용하게 된다. 우리가 primitive type으로 선언할 수 있는걸 굳이 wrapper class로 사용하게 된다면 불필요한 객체를 다수 생성하게 될 수 있다.
+   
+   예를 들어
+   
+   ```
+   Long sum = 0;
+   for (long i = 0; i < 10; i++) {
+      sum += i;                        
+   }
+   ```
+   
+   만약 위와 같은 코드가 존재한다면 i가 하나씩 증가할때마다 새로운 sum 객체가 생성될 것이다.
+                           
+   이는 프로그램의 속도를 매우 느려지게할 뿐 아니라 불필요한 메모리 공간을 너무 많이 생성한다.
+                           
+   이때 sum을 long으로 선언한다면 primitive 타입에 값을 더하기만 하면 되어 불필요한 객체 생성을 막을 수 있다.
+   
+   
+    
+</details>
+
+
+
