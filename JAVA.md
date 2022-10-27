@@ -194,5 +194,32 @@
     
 </details>
 
+### Generics
+<details>
+   <summary> 자세히 보기 </summary>
+ 
+ <br>
+   지네릭스는 클래스, 인터페이스, 메소드를 정의할때 타입을 파라미터로 사용할 수 있게 해주는 기술이다. 타입 파라미터는 같은 코드를 여러가지 인풋에 맞게 사용할 수 있도록 해준다. 기존 파라미터는 값인 반면에 제네릭은 타입을 제공한다.
+
+지네릭을 사용할때의 장점은 타입 캐스팅을 없애준다. 만약 지네릭이 없으면 오브젝트 클래스로 사용해야 하는데 이는 해당 객체를 사용할때 구체적인 클래스로 형변환이 필요하다. 하지만 지네릭을 사용하면 형변환이 따로 필요 없다.
+
+
+```
+List list = new ArrayList();
+list.add("hello");
+String s = **(String)** list.get(0);
+```
+
+```
+List<String> list = new ArrayList<String>();
+list.add("hello");
+String s = list.get(0);   // no cast
+```
+
+
+
+    
+</details>
+
 
 
