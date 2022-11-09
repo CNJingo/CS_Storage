@@ -206,3 +206,29 @@ Consumer: 브로커로 부터 데이터 batch를 받아서 사용한다.
    네임노드들은 네임스페이스 볼륨은 나눠서 관리하지만 블록풀은 나눠져 있지 않다. 한마디로 모든 데이터 노드는 네임노드별로 전부 저장하고 있는 것이다.
   
 </details>
+
+
+### Hadoop Job Tracker
+<details>
+   <summary> 자세히 보기 </summary>
+ 
+ <br>
+    JobTracker는 하둡안에 있는 데몬 서비스이며 MR task를 특정한 노드로 뿌리는 역할을 한다.
+
+이상적으로 해당 노드는 데이터를 가지고 있거나 최소한 같은 랙이여야 한다.
+
+JobTracker는 다음과 같은 순서로 작동한다.
+
+1. Client application은 잡을 Job Tracker에게 넘긴다.
+2. Job Tracker는 네임노드에게 데이터의 위치를 결정하라고 한다.
+3. Job Tracker는 선택된 Task Tracker node에게 일을 전달한다.
+4. Trask Tracker는 모니터링되며 만약 hearbeat를 원활하게 보내지 않을 경우 해당 일은 다른 Trask Tracker에게 스케쥴된다.
+5. TaskTracker는 task가 실패했을때 잡트래커에게 노티를 보내야 한다. 
+6. 일이 끝나면 JobTracker는 상태를 업데이트 한다.
+7. 클라이언트는 JobTracker로부터 정보를 가져올 수 있다.
+
+JobTracker는 실패지점이 될 수 있다. 만약 JobTracker가 죽는다면 돌고 있는 잡들도 모두 중단된다.
+
+   
+  
+</details>
