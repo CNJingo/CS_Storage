@@ -166,6 +166,9 @@ Filter역시 Spring boot내에서는 bean으로 등록되어 있기 때문에 �
 <details>
    <summary> 자세히 보기 </summary>
    
+   
+ <br>
+   
    원래 filter는 spring mvc 밖에 존재하면서 dispatcher servlet으로 요청이 들어가기 전에 존재한다. 즉 클라이언트의 요청을 제일 먼저 받는 곳이 필터이다.
    
    그렇기 때문에 원래 filter는 spring bean으로 등록될 수 없다. 하지만 delegatingFilterProxy는 서블릿 필터를 스프링 빈으로 등록 가능케 해준다.
@@ -193,6 +196,8 @@ delegatingFilterProxy는 spring security에서 주요하게 사용하는 기술�
 
 <details>
    <summary> 자세히 보기 </summary>
+   
+ <br>
 @mock 과 @InjectMock의 차이점은 Mock은 정말 목 오브젝트이지만 InjectMock은 실제 클래스의 인스턴스를 생성한다. 그리고 Mock 오브젝트를 의존성으로 주입받는 오브젝트이다.
 
    JUnit4 에서는 @RunWith(MockitoJUnitRunner.class) or Mockito.initMocks(this)를 사용하여 반드시 주입시킬 Mock오브젝트를 초기화 시켜줘야 한다.
@@ -226,6 +231,8 @@ public class SomeManagerTest {
 
 <details>
    <summary> 자세히 보기 </summary>
+   
+ <br>
 Spring tansaction propagation은 트랜잭션에 관한 것이다. 트랜잭션 설정이 돼있는 메소드가 다른 메소드를 호출했을때 해당 메소드가 기존에 존재하던 트랜잭션 안에서 실행될 것이나 아니면 새로운 트랜잭션을 생성해서 실행될 것이냐로 나뉜다.
    
    propagation_requires_new 는 새로운 트랜잭션을 생성해서 실행하는 것이고
@@ -246,6 +253,8 @@ Spring tansaction propagation은 트랜잭션에 관한 것이다. 트랜잭션 
 
 <details>
    <summary> 자세히 보기 </summary>
+   
+ <br>
    JWT기반 로그인에서 Spring security는 유저를 인증한다. 해당 JWT가 유효한 JWT가 맞다면 유저의 정보를 Security context holder에 저장해놓는다. 이 Security context holder에 유저 정보를 저장해놓으면 인증 이후 실행될 API에서 쉽게 유저의 정보에 접근하여 꺼낼 수 있다.
    
    이게 어떻게 가능한 것인가? 그것의 비밀은 바로 threadlocal에 있다. thread 로컬은 스레드내에 정보를 저장할 수 있게하여 해당 스레드가 살아있는 동안은 어디서든 해당 정보에 접근할 수 있다.
@@ -261,17 +270,17 @@ Spring tansaction propagation은 트랜잭션에 관한 것이다. 트랜잭션 
  <br>
    
  </details>
- 
-  <br>
-   
- </details>
+
+  
    
  ### proxy pattern과 decorator pattern
 
 <details>
    <summary> 자세히 보기 </summary>
    
-      우리는 클라이언트가 의존하고 있는 클래스 (target class라고 부르기로 하겠다.)에 대해서 부가적인 기능을 더하고 싶을때 프록시 패턴과 데코레이터 패턴을 사용할 수 있다.
+ <br>
+   
+   우리는 클라이언트가 의존하고 있는 클래스 (target class라고 부르기로 하겠다.)에 대해서 부가적인 기능을 더하고 싶을때 프록시 패턴과 데코레이터 패턴을 사용할 수 있다.
    
    두 패턴이 이름이 다르지만 근본적으로는 프록시 클래스를 사용하여 클라이언트의 타겟에 대한 요청을 대신 처리한다는 개념으로 같고 다른 점은 의도가 차이가 난다.
    
