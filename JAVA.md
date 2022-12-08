@@ -273,7 +273,7 @@ String s = list.get(0);   // no cast
 </details>
 	
 	
-### String과 StringBuilder의 차이
+### String vs StringBuilder vs StringBuffer
 <details>
    <summary> 자세히 보기 </summary>
  
@@ -294,7 +294,11 @@ StringBuilder 역시 byte 배열을 내부적으로 가지고 있다.
 위 과정은 ArrayList에 값을 추가하는 과정과 매우 유사하다.
 내부적으로는 배열로 선언돼있지만 동적으로 작동하는 것처럼 보이기 위해 element를 추가할때마다 capacity를 확인하고 부족하면 늘린뒤에 copy함수를 통해 기존 값들을 담는다.
 	
-	
+StringBuffer와 StringBuilder는 둘다 AbstractStringBuilder를 상속한 클래스이다.
+
+두개의 차이점은 StringBuffer는 AbstractStringBuilder의 메소드를 오버라이드 할때 전부 synchronized keyword를 붙였다는 점이 다르다. 이는 메소드에 진입할때 락을 건다는 뜻이고 멀티스레드 환경에서 안전한 사용을 보장받을 수 있다. 하지만 매번 메소드 호출마다 락을 걸기때문에 성능면에서는 StringBuilder보다 느릴 수 밖에 없다.
+
+그러기 때문에 단일 스레드 환경에서는 StringBuilder를 쓰는게 더 효율적이라고 볼 수 있다.
 
     
 </details>
