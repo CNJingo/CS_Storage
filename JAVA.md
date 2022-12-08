@@ -271,4 +271,30 @@ String s = list.get(0);   // no cast
 
     
 </details>
+	
+	
+### String과 StringBuilder의 차이
+<details>
+   <summary> 자세히 보기 </summary>
+ 
+ <br>
+	String은 final class이다. 한번 생성되고 나면 그 값이 변하지 않는다. String안에 value라는 바이트 배열은 final로 선언돼있기 때문이다.
+	
+	String은 final class로 선언돼있어서 몇가지 이점을 갖는다. 일단 불변한 객체이므로 멀티스레드 환경에서 접근할때 안전하다.
+	
+	readOnly이기 때문이다.
+	
+	그렇기 때문에 같은 스트링은 재 생성하지 않고 기존에 있는 String pool에서 가져다 쓰므로 메모리 절감 효과도 가져온다.
 
+	StringBuilder 역시 byte 배열을 내부적으로 가지고 있다.
+	하지만 String과 달리 final클래스가 아니다. 그래서 Append를 하면 내부적으로 str.getBytes()를 호출하여 String byte배열을 System.arraycopy로 StringBuilder에서 사용하는 byte배열로 퍼담는다.
+
+	물론 이 과정을 진행하기 전에 byte배열의 크기를 살피고 capacity를 초과하는 경우 value 배열에 Arrays.copy를 통해서 기존 값을 담음과 동시에 새로운 length를 부여한다.
+
+	위 과정은 ArrayList에 값을 추가하는 과정과 매우 유사하다.
+	내부적으로는 배열로 선언돼있지만 동적으로 작동하는 것처럼 보이기 위해 element를 추가할때마다 capacity를 확인하고 부족하면 늘린뒤에 copy함수를 통해 기존 값들을 담는다.
+	
+	
+
+    
+</details>
