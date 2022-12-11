@@ -1,4 +1,4 @@
-# JAVA
+# NETWORK
 
 ### 브라우저에 naver.com 를 입력하면 일어나는 일
 <details>
