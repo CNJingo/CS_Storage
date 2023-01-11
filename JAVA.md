@@ -313,3 +313,26 @@ StringBuffer와 StringBuilder는 둘다 AbstractStringBuilder를 상속한 클�
 
     
 </details>
+
+### for loop vs stream
+<details>
+   <summary> 자세히 보기 </summary>
+ 
+ <br>
+for loop이 일반적으로 속도가 빠르다  하지만 들어오는 인풋의 길이가 엄청나게 크다면 stream이 유리하다.
+
+왜냐하면 stream은 병렬처리가 가능하기 때문에 큰 데이터일수록 유리해진다.
+
+병렬처리에 사용되는 overhead가 존재하기 때문에 작은 데이터에는 알맞지 않다.
+
+stream이 좋은 이유는 몇가지 더 존재한다.
+
+첫번째는 가독성이다. functional programming을 사용하여 가독성을 높인다. 함수형 프로그래밍의 장점은 해당 함수가 어떤식으로 동작할지 예측이 가능하다는 점이다. map이나 filter와 같이 어떤역할을 할지 명확하게 보이며 해당 함수의 파라미터로 원하는 동작을 하는 함수를 넣어서 사용할 수 있다.
+
+보통 for loop같은 경우에는 내부코드를 뜯어봐야지만 어떤 동작을 하는지 알 수 있다.
+
+두번째는 mutability가 낮다. stream은 기존의 element들을 변경하지 않고 새로운 stream을 생성해낸다. 그렇기 때문에 원본을 바꾸지 않기 떄문에 변화 가능성을 낮춰서 디버깅하기 쉬운 프로그래밍을 할 수 있다.
+
+    
+</details>
+	
