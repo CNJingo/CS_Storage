@@ -336,3 +336,24 @@ stream이 좋은 이유는 몇가지 더 존재한다.
     
 </details>
 	
+
+### Volatile
+<details>
+   <summary> 자세히 보기 </summary>
+ 
+ <br>
+	
+ volatile 키워드는 멀티스레드 환경에서 중요한 키워드이다. 스레드는 성능적인 이슈 때문에 메인 메모리에 있는 변수를 스레드 캐시에 복사해서 사용하게 된다. 만약 서로 다른 스레드가 서로 다른 프로세서 위에서 실행되고 있다면 스레드가 변경한 변수는 언제 메인 메모리에 동기화 될지 모른다. 이 때문에 해당 변수의 상태는 불일치 상태가 될 확률이 매우 높다.
+
+해당 변수를 volatile로 선언하게 되면 변수를 변경하게 되면 변경사항이 바로 메인메모리에 동기화 된다. 그렇게 되면 해당 변수를 사용하는 모든 스레드가 최신 상태의 변수를 사용할 수 있게 된다.
+
+volatile 키워드는 주로 다음과 같은 상황에 사용된다.
+1. 하나의 스레드가 write를 하고 다른 스레드는 read를 하고 있을때
+2. 여러개의 스레드가 공유변수에 writing을 하고 있고 그 operation이 atomic할때
+
+valatile은 하지만 synchronized 키워드와 달리 non-atomic operation이나 composite operation이 공유번수에 작용할때 thread safety를 보장하지는 못한다.
+
+synchornized는 크리티컬 섹션에 오직 하나의 스레드만 허용하여 다른 스레드를 블락 시킬 수 있기 때문에 thread safety를 보장한다.
+	
+	
+</details>
