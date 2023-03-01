@@ -175,3 +175,40 @@ interrut vector table은 real mode에서 사용되며 ISR에 대한 포인터를
 
 IDT는 protected mode에서 사용된다. IVT와 마찬가지로 ISR에 대한 포인터를 가지고 있으며 항상 physical memory에 상주해 있어야한다. 절대로 가상 메모리로 스왑 out 돼서는 안된다. 
 
+</details>
+
+
+
+### system call은 어떻게 kernel과 변수를 교환할까?
+<details>
+   <summary> 자세히 보기 </summary>
+	
+시스템 콜이 커널에게 제어권을 넘겨줄때 시스템 콜은 함수 실행에 필요한 파라미터를 전달해야될 때가 생길 수 있다.
+
+그때 시스템 콜은 매개변수를 어떻게 넘길 수 있을까?
+
+방법은 대표적으로 두가지가 있다. 하나는 레지스터를 통해 전달하는 것 두번째는 스텍 메모리에 저장하는 것이다.
+
+레지스터에 전달하는 것은 register에 값을 저장하는 특별한 assemly langauge를 통해서 값이 쓰인다.
+
+```
+mov eax, 42      ; move the immediate value 42 into the eax register
+```
+
+스택을 통해 전달되는 것은 main memory를 통해서 전달되는 것이다. user application이 매개변수를 스택에 push하고 커널이 스택에서 데이터를 pop 하는것이다. 
+
+시스템 콜이 발생하여 커널모드로 넘어가게 되면 커널은 현재 프로세스의 메모리공간에 엑세스 하여 스택 포인터 레지스터를 활용하여 스택에서 시스템 콜 파라미터를 찾습니다.
+
+운영체제마다 다르겠지만 x86 같은 경우 %rdi, %rsi, %rdx, %rcx, %r8 및 %r9라고 불리는 6개의 레지스터에 시스템 콜 파라미터가 담기게 되고 6개가 넘어가게 되면 일반적으로 스택에 매개변수를 담게 됩니다.
+
+시스템 콜의 리턴값도 역시 레지스터나 메모리 주소로 리턴이 되게 됩니다.
+
+자바같은 경우 시스템콜을 발생시키기 위해 JNI를 사용하여 C또는 어셈블리로 작성된 코드를 호출합니다. native method는 특정한 instruction을 실행시켜 제어권을 JVM으로부터 OS kernel로 바꿔줍니다. 
+
+OS kernel이 연산을 모두 수행하면 trap이나 interrupt를 발생시켜 제어권을 돌려줍니다. native method는 해당 결과값을 받아서 자바 프로그램에게 돌려줍니다. 
+
+
+ <br>
+
+
+</details>
