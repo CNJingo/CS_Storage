@@ -357,3 +357,32 @@ synchornized는 크리티컬 섹션에 오직 하나의 스레드만 허용하�
 	
 	
 </details>
+
+
+### JVM
+<details>
+   <summary> 자세히 보기 </summary>
+ 
+ <br>
+	
+ JVM의 메모리 영역은 HEAP, STACK, naitve method area, pc register, method area
+
+ 크게 다섯가지로 나뉜다.
+
+ heap 메모리는 java7까지 permgen이라는 특별한 영역을 가지고 있었는데 이 메모리 공간은 런타임 클래스나 메소드에 대한 메타데이터나 static variable, 상수 풀같은 것들을 저장해두는 역할을 하였다.
+ 하지만 java8부터는 permgen이 사라지고 metaspace라는 영역으로 바뀌었따 metaspace는 os레벨에서 관리되는 메모리 영역이기 때문에 permgen보다 훨씬 더 많은 메모리 영역을 사용할 수 있다.
+ permgen이 metaspace로 바뀌면서 metaspace에서 클래스와 메소드에 관련된 메타데이터를 가지게 되었고 static variable의 저장소는 heap메모리에 남게 되었다.
+
+ native method area는 JVM에서 시스템콜을 호출할때 C로 랩핑돼있는 함수를 호출해야할 필요가 있는데 (JNI를 사용해서) 이때 이러한 메소드들이 저장되어 있는 영역이다.
+
+ method area는 클래스나 메소드에 대한 메타데이터를 저장하고 있다. 여기서 헷갈릴 것이 permgen이랑 겹치는거 아니냐는 의문을 가질 수 있다. 찾아보니 method area는 permgen에 포함된 영역이였다.
+
+ 오라클 reference를 확인해보니 permgen도 heap의 영역중 일부란다. 그럼 method area는 permgen의 일부이고 permgen은 heap의 일부이니 method area역시 heap메모리에 포함관계라고 생각해야겠다.
+
+ pc register는 현재 스레드들이 실행하고자 하는 instruction의 주소가 저장되는 공간이다.
+
+ https://www.baeldung.com/jvm-static-storage
+
+ https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/gc01/index.html
+	
+</details>
