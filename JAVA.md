@@ -386,3 +386,12 @@ synchornized는 크리티컬 섹션에 오직 하나의 스레드만 허용하�
  https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/gc01/index.html
 	
 </details>
+
+### Logging시에 log4j랑 System.out.println을 쓰는 것이 뭐가 다를까?
+<details>
+   <summary> 자세히 보기 </summary>
+ 
+ <br>
+
+	
+</details>
